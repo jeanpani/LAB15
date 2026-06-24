@@ -11,23 +11,16 @@ El proyecto simula un escenario real donde un atacante satura el ancho de banda 
 * **`defensa.sh`**: Script de mitigación activa. Analiza las conexiones TCP entrantes al servidor web, identifica de forma dinámica la dirección IP agresiva y aplica reglas restrictivas en el Firewall (`iptables`) para cortar el ataque de raíz.
 * **`INFORME_INCIDENTE.md`**: Reporte técnico detallado que sigue la metodología de resolución de problemas de HP, respondiendo a las preguntas de análisis socrático e incluyendo las evidencias visuales (`nload`, `iostat`) del antes y después de la mitigación.
 
-***
+---
 
 ## 🛡️ Defensa.sh
 
 Para tener la defensa activada tenemos que crear el archivo defensa.sh:
 ```
 nano defensa.sh
-
 ```
 
-Después tenemos que darle permisos de ejecución con el comando:
-```
-sudo chmod +x defensa.sh
-
-```
-
-Abrimos el archvio defensa.sh y pegamos el siguiente script:
+Dentro de el archvio defensa.sh y pegamos el siguiente script:
 ```
 #!/bin/bash
 
@@ -74,9 +67,15 @@ sysctl -w net.ipv4.tcp_max_syn_backlog=2048
 
 echo "[+] Reseteando conexiones previas del atacante..."
 iptables -A INPUT -p tcp --dport 80 -m conntrack --ctstate ESTABLISHED -j REJECT --reject-with tcp-reset
-
 ```
-...
+
+Después tenemos que darle permisos de ejecución con el comando:
+```
+sudo chmod +x defensa.sh
+```
+>Nos pedirá contraseña de autenticación, tienes que poner la contraseña de tu usuario.
+
+---
 
 ## ⚙️ Arquitectura del Sistema de Prevención (Cron + Monitoreo)
 
@@ -86,5 +85,5 @@ Para garantizar la resiliencia del servidor sin intervención humana, se diseñ�
 2.  **Evaluación de Umbral:** Si el tráfico de salida supera un umbral de peligro crítico (ej. 50 Mbps), el sensor actúa como un interruptor.
 3.  **Activación Autónoma:** Al detectar la anomalía, el sensor invoca automáticamente a `defensa.sh`, aislando al atacante de inmediato.
 
-___
+
 
