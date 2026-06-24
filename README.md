@@ -4,11 +4,14 @@ Este repositorio contiene la solución técnica desarrollada para la detección,
 
 El proyecto simula un escenario real donde un atacante satura el ancho de banda de salida y los recursos de almacenamiento, comprometiendo la disponibilidad del servicio.
 
+---
+
 ## 📁 Contenido del Repositorio
 
 * **`defensa.sh`**: Script de mitigación activa. Analiza las conexiones TCP entrantes al servidor web, identifica de forma dinámica la dirección IP agresiva y aplica reglas restrictivas en el Firewall (`iptables`) para cortar el ataque de raíz.
 * **`INFORME_INCIDENTE.md`**: Reporte técnico detallado que sigue la metodología de resolución de problemas de HP, respondiendo a las preguntas de análisis socrático e incluyendo las evidencias visuales (`nload`, `iostat`) del antes y después de la mitigación.
 
+***
 
 ## 🛡️ Defensa.sh
 
@@ -73,6 +76,7 @@ echo "[+] Reseteando conexiones previas del atacante..."
 iptables -A INPUT -p tcp --dport 80 -m conntrack --ctstate ESTABLISHED -j REJECT --reject-with tcp-reset
 
 ```
+...
 
 ## ⚙️ Arquitectura del Sistema de Prevención (Cron + Monitoreo)
 
@@ -82,5 +86,5 @@ Para garantizar la resiliencia del servidor sin intervención humana, se diseñ�
 2.  **Evaluación de Umbral:** Si el tráfico de salida supera un umbral de peligro crítico (ej. 50 Mbps), el sensor actúa como un interruptor.
 3.  **Activación Autónoma:** Al detectar la anomalía, el sensor invoca automáticamente a `defensa.sh`, aislando al atacante de inmediato.
 
-
+___
 
