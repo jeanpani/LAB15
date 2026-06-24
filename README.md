@@ -19,7 +19,7 @@ Para garantizar la resiliencia del servidor sin intervención humana, se diseñ�
 3.  **Activación Autónoma:** Al detectar la anomalía, el sensor invoca automáticamente a `defensa.sh`, aislando al atacante de inmediato.
 
 ## 🛡️ Defensa.sh
-´´´
+```
 #!/bin/bash
 
 # SCRIPT 
@@ -66,4 +66,5 @@ sysctl -w net.ipv4.tcp_max_syn_backlog=2048
 echo "[+] Reseteando conexiones previas del atacante..."
 iptables -A INPUT -p tcp --dport 80 -m conntrack --ctstate ESTABLISHED -j REJECT --reject-with tcp-reset
 
-´´´
+```
+
