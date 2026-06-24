@@ -10,6 +10,7 @@ El proyecto simula un escenario real donde un atacante satura el ancho de banda 
 
 * **`defensa.sh`**: Script de mitigación activa. Analiza las conexiones TCP entrantes al servidor web, identifica de forma dinámica la dirección IP agresiva y aplica reglas restrictivas en el Firewall (`iptables`) para cortar el ataque de raíz.
 * **`INFORME_INCIDENTE.md`**: Reporte técnico detallado que sigue la metodología de resolución de problemas de HP, respondiendo a las preguntas de análisis socrático e incluyendo las evidencias visuales (`nload`, `iostat`) del antes y después de la mitigación.
+* **`README.md`**: Una pequeña guia para tener defensa.sh y como haríamos para automatizar el trabajo de defensa.sh.
 
 ---
 
